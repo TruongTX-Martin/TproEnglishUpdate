@@ -1,0 +1,3 @@
+Release:
+- Alias: BibleStory
+- Password: 123456

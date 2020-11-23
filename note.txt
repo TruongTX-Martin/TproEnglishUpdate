@@ -1,0 +1,12 @@
+Fix realm issue 
+https://github.com/realm/realm-js/issues/2549
+Steps:
+1- Open Xcode
+2- Go to /your/system/path/projectName/node_modules/realm/src
+3- You will see the file called RealmJS.xcodeproj, launch project by double clicking
+4- Go to targets
+5- You will see three targets
+first Target -> RealmJS
+second target -> GCDWebServers
+third target -> RealmJSTests or something similar, (not sure bcs I deleted earlier)
+6- Delete test target and thank me later.

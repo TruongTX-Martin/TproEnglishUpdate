@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "185141496389",
+    "firebase_url": "https://quizenglishlistening.firebaseio.com",
+    "project_id": "quizenglishlistening",
+    "storage_bucket": "quizenglishlistening.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185141496389:android:d47f4ba52797a5920c712c",
+        "android_client_info": {
+          "package_name": "com.tproenglish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185141496389-ig0gk5gpn836u9kmfe1imlqoiht378ag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNKioyKjUQvYddALbMAGI35JoEYysg6PI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185141496389-ig0gk5gpn836u9kmfe1imlqoiht378ag.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "185141496389-46d8jcofng8j5gblcbgatiodrf2rji44.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tproenglish"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

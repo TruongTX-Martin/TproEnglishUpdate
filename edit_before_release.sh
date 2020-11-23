@@ -1,0 +1,1 @@
+cp -fr ./customize/RCTUIImageViewAnimated.m ./node_modules/react-native/Libraries/Image
