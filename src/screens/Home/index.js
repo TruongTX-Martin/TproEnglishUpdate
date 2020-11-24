@@ -22,9 +22,9 @@ import I18n from 'react-native-i18n';
 import RNExitApp from 'react-native-exit-app';
 import { EventRegister } from 'react-native-event-listeners'
 import Constants from '../../Config/Constant';
-import Spinner from 'react-native-loading-spinner-overlay';
 import AdmobBanner from '../../Components/AdmobBanner';
 import Style from '../Detail/style';
+import Loading from '../../Components/Loading';
 
 var { height, width } = Dimensions.get('window');
 const TAB = {
@@ -466,7 +466,7 @@ class index extends Component {
   }
 
   render() {
-    const { listCategory } = this.state;
+    let { listCategory, loading } = this.state;
     return (
       <Container>
         <Header style={Config.Styles.header}>
@@ -478,11 +478,16 @@ class index extends Component {
         </Header>
         <Body>
           <Content>
-            <Spinner
-              visible={this.state.loading}
-              textContent={'Loading...'}
-              textStyle={{ color: '#FFF' }}
-            />
+            <Loading visible={loading} color={'#00A8D9'} styles={{ marginTop: 50 }} />
+            {
+              !loading && listCategory.length == 0 && <TouchableOpacity
+                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width, marginTop: 20 }}
+                onPress={() => this.getCategory()}
+              >
+                <Text style={{ textAlign: 'center' }}>Tải lại dữ liệu</Text>
+                <Image style={{ width: 50, height: 50, marginTop: 20 }} source={Images.imageIcReload} />
+              </TouchableOpacity>
+            }
             {
               this.state.tab === TAB.CATEGORY && (
                 <FlatList

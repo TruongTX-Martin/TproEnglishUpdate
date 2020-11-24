@@ -26,5 +26,19 @@ export default (constant = {
   RELOAD_LANGUAGE: 'reloadLanguage',
   ISFIRST: 'firstTime',
   STATUS_NETWORK: 'statusNetwork',
-  BACK_HANDLE: 'backHandle'
+  BACK_HANDLE: 'backHandle',
+  STORAGE_REGISTER_NOTIFICATION: '@tpro_english_register_notification',
+  PUSH_NOTIFICATION_STATUS: '@tpro_english_PUSH_NOTIFICATION_STATUS',
+  PUSH_NOTIFICATION_TIME: '@tpro_english_PUSH_NOTIFICATION_TIME',
+  NOTIFICATION_INFOR: {
+    ID: 'NotificationID_Tpro_English',
+    TITLE: 'Tpro English',
+    CONTENT:
+      'Hãy học tiếng anh và làm chủ cuộc đời mình nào bạn trẻ.',
+  },
+  CHANNEL_OBJECT: {
+    channelId: 'TproEnglishChannelID',
+    channelName: 'TproEnglishChannelName',
+    channelDes: 'TproEnglishChannelDes',
+  },
 });

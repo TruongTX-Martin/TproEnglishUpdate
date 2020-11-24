@@ -19,6 +19,8 @@ import Constants from '../../Config/Constant';
 import Spinner from 'react-native-loading-spinner-overlay';
 import AdmobBanner from '../../Components/AdmobBanner';
 import { Localizations } from '../../i18n';
+import Loading from '../../Components/Loading';
+
 var { height, width } = Dimensions.get('window');
 class index extends Component {
   constructor(props) {
@@ -34,6 +36,11 @@ class index extends Component {
 
   componentDidMount() {
     this.getListFormDB();
+  }
+
+  reloadData() {
+    const childCategory = this.props.navigation.state.params.childCategory;
+    this.getListLesson(childCategory);
   }
 
   getListFormDB() {
@@ -210,24 +217,30 @@ class index extends Component {
   }
 
   render() {
-    const { listLesson } = this.state;
+    let { listLesson, loading } = this.state;
     return (
       <Container>
         <Header style={Config.Styles.header}>
           <HeaderBase title={Localizations('listLesson.listLesson')} navigation={this.props.navigation} />
         </Header>
         <Body>
-          <Content>
-            <Spinner
-              visible={this.state.loading}
-              textContent={'Loading...'}
-              textStyle={{ color: '#FFF' }}
-            />
+          <Content showsVerticalScrollIndicator={false}>
+            <Loading visible={loading} color={'#00A8D9'} styles={{ marginTop: 50 }} />
+            {
+              !loading && listLesson.length == 0 && <TouchableOpacity
+                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width, marginTop: 20 }}
+                onPress={() => this.reloadData()}
+              >
+                <Text style={{ textAlign: 'center' }}>Tải lại dữ liệu</Text>
+                <Image style={{ width: 50, height: 50, marginTop: 20 }} source={Images.imageIcReload} />
+              </TouchableOpacity>
+            }
             <FlatList
               extraData={listLesson}
               data={listLesson}
               keyExtractor={(item, index) => item?.id?.toString()}
               renderItem={(item, index) => this.renderItem(item, index)}
+              showsVerticalScrollIndicator={false}
             />
           </Content>
         </Body>

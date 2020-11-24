@@ -4,7 +4,7 @@
 
 //Home screen
 const homeScreen = {
-    titleHeader: 'TproListenning',
+    titleHeader: 'Tpro English',
 
 }
 

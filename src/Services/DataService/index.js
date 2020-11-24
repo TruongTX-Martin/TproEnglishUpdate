@@ -71,7 +71,7 @@ const updateLesson = (lesson, total, score) => {
 const addNewWord = newWord => {
   try {
     const lessons = Realm.objects(Constants.NEWWORD).filtered(`title="${newWord.title}"`);
-    if(Object.keys(lessons).length === 0){
+    if (Object.keys(lessons).length === 0) {
       Realm.write(() => {
         Realm.create(Constants.NEWWORD, newWord);
       });
@@ -86,7 +86,7 @@ const addNewWord = newWord => {
 const getNewWordByLesson = lesson => {
   const lessons = Realm.objects(Constants.NEWWORD).filtered(`lessonId="${lesson.id}"`);
   const newArr = [];
-  for (let i=0; i< lessons.length; i++) {
+  for (let i = 0; i < lessons.length; i++) {
     const item = lessons[i];
     newArr.push({
       ...item
@@ -98,7 +98,7 @@ const getNewWordByLesson = lesson => {
 const getMyWords = () => {
   const lessons = Realm.objects(Constants.NEWWORD).filtered(`isMyWord=true`);
   const newArr = [];
-  for (let i=0; i< lessons.length; i++) {
+  for (let i = 0; i < lessons.length; i++) {
     const item = lessons[i];
     newArr.push({
       ...item
@@ -110,7 +110,7 @@ const getMyWords = () => {
 const getMyWrongWords = () => {
   const lessons = Realm.objects(Constants.NEWWORD).filtered(`isWrong=true`);
   const newArr = [];
-  for (let i=0; i< lessons.length; i++) {
+  for (let i = 0; i < lessons.length; i++) {
     const item = lessons[i];
     newArr.push({
       ...item
@@ -134,7 +134,7 @@ const deleteNewWord = newWord => {
 
 const updateNewWord = (newWord, title, meaning, note) => {
   try {
-    if(newWord.title ===  title){
+    if (newWord.title === title) {
       Realm.write(() => {
         let data = Realm.objects(Constants.NEWWORD).filtered(
           `id="${newWord.id}"`
@@ -148,9 +148,9 @@ const updateNewWord = (newWord, title, meaning, note) => {
         }
       });
       return true;
-    }else{
+    } else {
       const lessons = Realm.objects(Constants.NEWWORD).filtered(`title="${title}"`);
-      if(Object.keys(lessons).length === 0){
+      if (Object.keys(lessons).length === 0) {
         Realm.write(() => {
           let data = Realm.objects(Constants.NEWWORD).filtered(
             `id="${newWord.id}"`
@@ -164,7 +164,7 @@ const updateNewWord = (newWord, title, meaning, note) => {
           }
         });
         return true;
-      }else{
+      } else {
         return false;
       }
     }
@@ -207,7 +207,7 @@ const removeFromMyWord = (newWord) => {
   }
 };
 
-const addToMyWordWrong = (newWord,isAdd) => {
+const addToMyWordWrong = (newWord, isAdd) => {
   try {
     Realm.write(() => {
       let data = Realm.objects(Constants.NEWWORD).filtered(
@@ -263,12 +263,39 @@ const getLanguage = async () => {
   }
 };
 
-const  encryptText = (text,key) => {
-    return CryptoJS.AES.encrypt(text,key).toString();
+const encryptText = (text, key) => {
+  return CryptoJS.AES.encrypt(text, key).toString();
 }
-const  decryptText = (text,key) => {
-  return CryptoJS.AES.decrypt(text,key).toString(ENC);
+const decryptText = (text, key) => {
+  return CryptoJS.AES.decrypt(text, key).toString(ENC);
 }
+
+const setRegisterNotification = () => {
+  try {
+    AsyncStorage.setItem(Constants.STORAGE_REGISTER_NOTIFICATION, 'true');
+  } catch (error) { }
+};
+const getRegisterNotification = async () => {
+  return await AsyncStorage.getItem(Constants.STORAGE_REGISTER_NOTIFICATION);
+};
+
+const setNotificationStatus = (time) => {
+  try {
+    AsyncStorage.setItem(Constants.PUSH_NOTIFICATION_STATUS, time.toString());
+  } catch (error) { }
+};
+const getNotificationStatus = async () => {
+  return await AsyncStorage.getItem(Constants.PUSH_NOTIFICATION_STATUS);
+};
+
+const setNotificationTime = (time) => {
+  try {
+    AsyncStorage.setItem(Constants.PUSH_NOTIFICATION_TIME, time.toString());
+  } catch (error) { }
+};
+const getNotificationTime = async () => {
+  return await AsyncStorage.getItem(Constants.PUSH_NOTIFICATION_TIME);
+};
 
 const dataService = {
   getData,
@@ -291,7 +318,13 @@ const dataService = {
   encryptText,
   decryptText,
   setFirstTime,
-  getFirstTime
+  getFirstTime,
+  setRegisterNotification,
+  getRegisterNotification,
+  setNotificationStatus,
+  getNotificationStatus,
+  setNotificationTime,
+  getNotificationTime,
 };
 
 export default dataService;

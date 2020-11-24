@@ -8,7 +8,7 @@ class index extends Component {
     render() {
         if (this.props.visible) {
             return (
-                <View style={styles.loadingView}>
+                <View style={[styles.loadingView, this.props.styles]}>
                     <ActivityIndicator size={this.props.size ? this.props.size : "large"} color={this.props.color ? this.props.color : colors.loading} />
                 </View>
             );

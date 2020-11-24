@@ -26,4 +26,5 @@ export default image = {
     imageTurorial5: require('./img_tutorial5.png'),
     imageTurorial6: require('./img_tutorial6.png'),
     imageTurorial7: require('./img_tutorial7.png'),
+    imageIcReload: require('./ic_reload.png'),
 }
