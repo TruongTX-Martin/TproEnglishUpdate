@@ -23,7 +23,6 @@ export const chunk = (target, size) => {
 
 export const debug = (identifier) => (item) => {
   object = JSON.parse(JSON.stringify(item))
-  console.log(`${identifier || ""}`, object)
   return item
 }
 

@@ -1,4 +1,5 @@
-package com.tpro.biblestory;
+package com.tproenglish;
+
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -328,7 +328,7 @@ PODS:
     - React
   - react-native-keep-awake (4.0.0):
     - React
-  - react-native-netinfo (5.9.7):
+  - react-native-netinfo (5.9.9):
     - React-Core
   - react-native-pdf (5.1.7):
     - React
@@ -409,6 +409,8 @@ PODS:
     - React
   - RNDateTimePicker (3.0.6):
     - React-Core
+  - RNExitApp (1.1.0):
+    - React
   - RNFirebase (5.6.0):
     - Firebase/Core
     - React
@@ -420,7 +422,14 @@ PODS:
     - React
   - RNGestureHandler (1.6.1):
     - React
+  - RNI18n (2.0.15):
+    - React
   - RNScreens (2.4.0):
+    - React
+  - RNSound (0.11.0):
+    - React
+    - RNSound/Core (= 0.11.0)
+  - RNSound/Core (0.11.0):
     - React
   - Toast (4.0.0)
   - Yoga (1.14.0)
@@ -489,9 +498,12 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
+  - RNExitApp (from `../node_modules/react-native-exit-app`)
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNI18n (from `../node_modules/react-native-i18n`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSound (from `../node_modules/react-native-sound`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -601,12 +613,18 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/masked-view"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
+  RNExitApp:
+    :path: "../node_modules/react-native-exit-app"
   RNFirebase:
     :path: "../node_modules/react-native-firebase/ios"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNI18n:
+    :path: "../node_modules/react-native-i18n"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSound:
+    :path: "../node_modules/react-native-sound"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -656,7 +674,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 512e560d0e985d0e8c479a54a4e5c147a9c83493
   react-native-config: 313a1306066289211579b9655eb81d9a565462d0
   react-native-keep-awake: afad8a51dfef9fe9655a6344771be32c8596d774
-  react-native-netinfo: 250dc0ca126512f618a8a2ca6a936577e1f66586
+  react-native-netinfo: 0212ce8604e88edf686f1481b925b17a42a52449
   react-native-pdf: 3c4f29b56f8916c4be96cad5cdb51ed2542c4b5c
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
   react-native-simple-toast: bf002828cf816775a6809f7a9ec3907509bce11f
@@ -676,13 +694,16 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCMaskedView: 4383c3140f1235391fd6029968c166f09ddd0973
   RNDateTimePicker: 120f8d08b19dd50c0308d30a07c1982e4618e9ad
+  RNExitApp: c4e052df2568b43bec8a37c7cd61194d4cfee2c3
   RNFirebase: 37daa9a346d070f9f6ee1f3b4aaf4c8e3b1d5d1c
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
+  RNI18n: e2f7e76389fcc6e84f2c8733ea89b92502351fd8
   RNScreens: b5c0e1b2b04512919e78bd3898e144a157ce2363
+  RNSound: da030221e6ac7e8290c6b43f2b5f2133a8e225b0
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 7d49ea068affff1cff06c6c066cdc677f54a4f42
+PODFILE CHECKSUM: ada18ecc8ae65fabba0bd17617312069001bb158
 
 COCOAPODS: 1.9.1

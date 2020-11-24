@@ -3,8 +3,8 @@ import Reactotron from 'reactotron-react-native'
 Reactotron
   .configure({
     name: "React Native Demo",
+    host: '10.80.0.27',
     /*If you want to connect Android for debug*/
-    host: '192.168.1.30'
   })
   .useReactNative({
     asyncStorage: false, // there are more options to the async storage.
@@ -16,9 +16,10 @@ Reactotron
     overlay: false, // just turning off overlay
   })
   .connect();
+
 // .connect({
 //   enabled: true,
-//   host: '10.80.0.52',  // server ip
+//   host: '192.168.1.30',  // server ip
 //   port: 9090
 // });
 

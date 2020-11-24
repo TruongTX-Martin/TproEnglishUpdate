@@ -7,6 +7,10 @@ import androidx.multidex.MultiDexApplication;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.zmxv.RNSound.RNSoundPackage;
+import com.github.wumke.RNExitApp.RNExitAppPackage;
+import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;

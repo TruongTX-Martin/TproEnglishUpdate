@@ -3,36 +3,34 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>232462285143-2k9oa9sdo9mf76g03mrpf4cjgogkb437.apps.googleusercontent.com</string>
+	<string>185141496389-46d8jcofng8j5gblcbgatiodrf2rji44.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.232462285143-2k9oa9sdo9mf76g03mrpf4cjgogkb437</string>
+	<string>com.googleusercontent.apps.185141496389-46d8jcofng8j5gblcbgatiodrf2rji44</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAUyrk-cY7dbyhKNjb9saYQVNn2tl2V2Hs</string>
+	<string>AIzaSyDgL956JZ3e4pj3BJP6_BEZEIu1sVt6BQg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>232462285143</string>
+	<string>185141496389</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.tpro.biblestory</string>
+	<string>com.tproenglish</string>
 	<key>PROJECT_ID</key>
-	<string>truyenkinhthanh</string>
+	<string>quizenglishlistening</string>
 	<key>STORAGE_BUCKET</key>
-	<string>truyenkinhthanh.appspot.com</string>
+	<string>quizenglishlistening.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:232462285143:ios:877f1674023532bd856612</string>
-	<key>CFBundleIdentifier</key>
-	<string></string>
+	<string>1:185141496389:ios:ad20fdaa353158620c712c</string>
 	<key>DATABASE_URL</key>
-	<string>https://truyenkinhthanh.firebaseio.com</string>
+	<string>https://quizenglishlistening.firebaseio.com</string>
 </dict>
 </plist>

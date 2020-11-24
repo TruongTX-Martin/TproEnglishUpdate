@@ -4,7 +4,7 @@
 
 //Home screen
 const homeScreen = {
-    titleHeader: 'Truyện Kinh Thánh',
+    titleHeader: 'TproListenning',
 
 }
 

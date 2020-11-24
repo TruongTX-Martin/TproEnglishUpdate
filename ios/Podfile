@@ -92,6 +92,14 @@ target 'TproEnglish' do
   pod 'Firebase/Messaging'
   pod 'Firebase/AdMob'
 
+  pod 'RNI18n', :path => '../node_modules/react-native-i18n'
+
+  pod 'RNExitApp', :path => '../node_modules/react-native-exit-app'
+
+  pod 'RNSound', :path => '../node_modules/react-native-sound'
+
+  pod 'rn-fetch-blob', :path => '../node_modules/rn-fetch-blob'
+
   target 'TproEnglishTests' do
     inherit! :complete
     # Pods for testing

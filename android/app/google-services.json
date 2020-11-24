@@ -1,42 +1,41 @@
 {
   "project_info": {
-    "project_number": "232462285143",
-    "firebase_url": "https://truyenkinhthanh.firebaseio.com",
-    "project_id": "truyenkinhthanh",
-    "storage_bucket": "truyenkinhthanh.appspot.com"
+    "project_number": "185141496389",
+    "firebase_url": "https://quizenglishlistening.firebaseio.com",
+    "project_id": "quizenglishlistening",
+    "storage_bucket": "quizenglishlistening.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:232462285143:android:939559cb922a5504856612",
+        "mobilesdk_app_id": "1:185141496389:android:d47f4ba52797a5920c712c",
         "android_client_info": {
-          "package_name": "com.tpro.biblestory"
+          "package_name": "com.tproenglish"
         }
       },
       "oauth_client": [
         {
-          "client_id": "232462285143-bv853vnfme5mh1n2v9giqoe12gc7v0q1.apps.googleusercontent.com",
+          "client_id": "185141496389-ig0gk5gpn836u9kmfe1imlqoiht378ag.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA5KN5wiWRCjdqt_mlt5bxWr6_JIqlx_rc"
+          "current_key": "AIzaSyDNKioyKjUQvYddALbMAGI35JoEYysg6PI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "232462285143-bv853vnfme5mh1n2v9giqoe12gc7v0q1.apps.googleusercontent.com",
+              "client_id": "185141496389-ig0gk5gpn836u9kmfe1imlqoiht378ag.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "232462285143-2k9oa9sdo9mf76g03mrpf4cjgogkb437.apps.googleusercontent.com",
+              "client_id": "185141496389-46d8jcofng8j5gblcbgatiodrf2rji44.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.tpro.biblestory",
-                "app_store_id": "1463547205"
+                "bundle_id": "com.tproenglish"
               }
             }
           ]

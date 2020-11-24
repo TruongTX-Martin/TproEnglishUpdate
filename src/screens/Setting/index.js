@@ -1,284 +1,190 @@
 import React, { Component } from 'react';
-import { Container, Body, Header, Footer, Content } from 'native-base';
-import {
-    View,
-    Text,
-    Dimensions,
-    Switch,
-    TouchableOpacity,
-    Platform,
-} from 'react-native';
-import HeaderBase from '../../components/HeaderBase';
-import Config from '../../config';
-import DataService from '../../service/DataService';
-import DateTimePicker from 'react-native-modal-datetime-picker';
+import { Text, View, Image, TouchableOpacity, Dimensions, Linking, BackHandler } from 'react-native';
+import ActionSheet from 'react-native-actionsheet';
+import { Container, Body, Content, Header, Footer, Button } from 'native-base';
+import Config from '../../Config';
+import HeaderBase from '../../Components/HeaderBase';
+import Images from '../../Assets/Images';
+import Constants from '../../Config/Constant';
 import { EventRegister } from 'react-native-event-listeners';
-import moment from 'moment';
-import { showToast, showInterstitialAd } from '../../utils';
-import { fcmService } from '../../service/FCMService';
-import BannerAd from '../../components/AdmobBanner';
-const { width, height } = Dimensions.get('window');
+import DataService from '../../Services/DataService';
+import I18n from 'react-native-i18n';
+import { Localizations } from '../../i18n';
+import AdmobBanner from '../../Components/AdmobBanner';
 
+
+var { height, width } = Dimensions.get('window');
 class index extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isEnableNoti: true,
-            isDateTimePickerVisible: false,
-            notificationTime: moment(),
-            connected: true,
-        };
-    }
-
-    componentDidMount() {
-        this.getTimeLocal();
-        this.eventNetworkStatus = EventRegister.addEventListener(
-            Config.Constant.EVENT_NETWORK_UPDATE,
-            (connected) => {
-                this.setState({ connected });
-            },
-        );
-    }
-
-    componentWillUnmount() {
-        EventRegister.removeEventListener(this.eventNetworkStatus);
-    }
-
-    async getTimeLocal() {
-        const timeNotiLocal = await DataService.getNotificationTime();
-        const newTime = moment(timeNotiLocal);
-        const notificationStatus = await DataService.getNotificationStatus();
-        this.setState({
-            notificationTime: newTime,
-            isEnableNoti: notificationStatus == 'true' ? true : false,
-        });
-    }
-
-    toggleSwitch = () => {
-        this.setState(
-            (prevState) => ({
-                isEnableNoti: !prevState.isEnableNoti,
-            }),
-            () => {
-                DataService.setNotificationStatus(this.state.isEnableNoti);
-                showInterstitialAd();
-                if (!this.state.isEnableNoti) {
-                    fcmService.removeDelieveredNotification(
-                        Config.Constant.NOTIFICATION_INFOR.ID,
-                    );
-                } else {
-                    this.setReminder();
-                }
-            },
-        );
+  constructor(props) {
+    super(props);
+    this.state = {
+      language: Constants.SettingScreen.ENGLISH_VALUE,
+      connected: props.navigation.state.params.connected
     };
+    this.optionsLanguage = [
+      Constants.SettingScreen.VIETNAM_LABEL,
+      Constants.SettingScreen.ENGLISH_LABEL,
+      Constants.SettingScreen.CANCEL
+    ];
+  }
 
-    displayDateTimePicker = () => {
-        const { isEnableNoti } = this.state;
-        if (!isEnableNoti) {
-            showToast('Bật nhắc nhở để đặt thời gian.');
-            return;
+  componentDidMount() {
+    this.getLanguage();
+  }
+
+  getLanguage() {
+    DataService.getLanguage().then(language => {
+      if(language != null && language.trim().length > 0) {
+        I18n.locale = language;
+        this.setState({ language });
+      }else{
+        const locale = I18n.currentLocale();
+        if(locale === 'vi-VN'){
+          I18n.locale = Constants.SettingScreen.VIETNAM_VALUE;
+          this.setState({ language : Constants.SettingScreen.VIETNAM_VALUE });
         }
-        this.setState({ isDateTimePickerVisible: true });
-    };
+      }
+    }).catch(err => console.log('Error:', err));
+  }
 
-    closeDateTimePicker = () => {
-        this.setState({ isDateTimePickerVisible: false });
-    };
+  handleActionChooseLanguage(index) {
+    switch (index) {
+      case 0:
+        this.updateLanguage(Constants.SettingScreen.VIETNAM_VALUE);
+        break;
+      case 1:
+        this.updateLanguage(Constants.SettingScreen.ENGLISH_VALUE);
+        break;
+      case 2:
+        break;
+    }
+  }
 
-    handlePicked = (date) => {
-        this.closeDateTimePicker();
-        showInterstitialAd();
-        this.setState(
-            {
-                notificationTime: moment(date),
-            },
-            () => this.setReminder(),
-        );
-    };
+  updateLanguage(language) {
+    if (language === this.state.language) {
+      return;
+    }
+    I18n.locale = language;
+    DataService.setLanguage(language);
+    EventRegister.emit(Constants.RELOAD_LANGUAGE);
+    this.setState({
+      language
+    });
+  }
 
-    setReminder = async () => {
-        const { notificationTime, isEnableNoti } = this.state;
-        if (!isEnableNoti) {
-            return;
-        }
-        DataService.setNotificationTime(notificationTime);
-        const title = Config.Constant.NOTIFICATION_INFOR.TITLE;
-        let description = Config.Constant.NOTIFICATION_INFOR.CONTENT;
-        let body = {
-            _title: title,
-            _body: description,
-            _data: {
-                title: title,
-                body: description,
-            },
-            _notificationId: Config.Constant.NOTIFICATION_INFOR.ID,
-            time: notificationTime,
-        };
-        this.scheduleReminder(body);
-    };
+  componentWillMount(){
+    this.realoadAdListener = EventRegister.addEventListener(Constants.STATUS_NETWORK, (data) => {
+      this.setState({
+        connected: data
+      })
+    })
+    BackHandler.addEventListener('hardwareBackPress', this.onAndroidBackPress);
+  }
+  componentWillUnmount(){
+    EventRegister.removeEventListener(this.realoadAdListener);
+    BackHandler.removeEventListener('hardwareBackPress', this.onAndroidBackPress);
+  }
 
-    scheduleReminder = (notifyDetails) => {
-        const notification = fcmService.buildNotification(
-            this.createNotification(notifyDetails),
-        );
-        fcmService.scheduleNotification(notification, notifyDetails.time);
-    };
+  onAndroidBackPress = () => {
+    this.props.navigation.goBack();
+    return true;
+  }
 
-    createNotification = (notify) => {
-        const channelObj = Config.Constant.CHANNEL_OBJECT;
-        const channel = fcmService.buildChannel(channelObj);
-        const buildNotify = {
-            title: notify._title,
-            content: notify._body,
-            sound: 'default',
-            channel: channel,
-            data: notify._data,
-            colorBgIcon: '#1A243B',
-            largeIcon: 'ic_launcher',
-            smallIcon: 'ic_launcher',
-            vibrate: true,
-            dataId: notify._notificationId,
-        };
-        return buildNotify;
-    };
-
-    render() {
-        const {
-            isEnableNoti,
-            isDateTimePickerVisible,
-            notificationTime,
-            connected
-        } = this.state;
-        const timeCalendar = new Date(notificationTime);
-        timeCalendar.setDate(new Date().getDate());
-        timeCalendar.setMonth(new Date().getMonth());
-        timeCalendar.setFullYear(new Date().getFullYear());
-        return (
-            <Container>
-                <Header style={Config.Styles.header}>
-                    <HeaderBase title={'Cài đặt'} navigation={this.props.navigation} />
-                </Header>
-                <Body>
-                    <Content showsVerticalScrollIndicator={false}>
-                        <View style={{ width, height, backgroundColor: '#eaeaea' }}>
-                            <View
-                                style={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    alignItems: 'flex-start',
-                                    justifyContent: 'space-between',
-                                    marginTop: 10,
-                                }}>
-                                <Text
-                                    style={{
-                                        fontSize: 17,
-                                        color: 'black',
-                                        fontWeight: '700',
-                                        marginLeft: 10,
-                                    }}>
-                                    Nhắc nhở đọc truyện hàng ngày
-                                </Text>
-                                <View
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        marginRight: 20,
-                                    }}>
-                                    <Switch
-                                        trackColor={{ false: '#767577', true: '#81b0ff' }}
-                                        thumbColor={isEnableNoti ? '#427ef7' : '#f4f3f4'}
-                                        ios_backgroundColor="#3e3e3e"
-                                        onValueChange={this.toggleSwitch}
-                                        value={isEnableNoti}
-                                    />
-                                    <Text
-                                        style={{
-                                            color: 'black',
-                                            fontWeight: isEnableNoti ? 'bold' : 'normal',
-                                            fontSize: 13,
-                                            marginTop: Platform.OS == 'ios' ? 0 : -5,
-                                        }}>
-                                        {isEnableNoti ? 'Bật' : 'Tắt'}
-                                    </Text>
-                                </View>
-                            </View>
-                            <View
-                                style={{
-                                    width: width - 20,
-                                    height: 0.5,
-                                    backgroundColor: '#cacaca',
-                                    marginLeft: 10,
-                                    marginVertical: 5,
-                                }}
-                            />
-                            <TouchableOpacity
-                                style={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    alignItems: 'flex-start',
-                                    justifyContent: 'space-between',
-                                    marginTop: 10,
-                                }}
-                                onPress={() => this.displayDateTimePicker()}>
-                                <Text
-                                    style={{
-                                        fontSize: 17,
-                                        color: 'black',
-                                        fontWeight: '700',
-                                        marginLeft: 10,
-                                    }}>
-                                    Thời gian
+  render() {
+    return (
+      <Container style={{ backgroundColor: '#EEEEEE' }}>
+        <Header style={Config.Styles.header}>
+          <HeaderBase title={Localizations('settingScreen.setting')} navigation={this.props.navigation} />
+        </Header>
+        <Body>
+          <Content>
+            <View>
+              <TouchableOpacity
+                style={{
+                  width: width - 20,
+                  height: 40,
+                  marginTop: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginHorizontal: 10,
+                  borderWidth: 1,
+                  borderColor: '#CACACA',
+                  borderRadius: 5,
+                  justifyContent: 'space-between'
+                }}
+                onPress={() => this.actionLanguage.show()}
+              >
+                <Text style={{ marginLeft: 10, fontSize: 16 }}>
+                {Localizations('settingScreen.language')}
                 </Text>
-                                <View
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        marginRight: 20,
-                                    }}>
-                                    <Text
-                                        style={{
-                                            color: '#427ef7',
-                                            fontWeight: '700',
-                                            fontSize: 17,
-                                        }}>
-                                        {moment(notificationTime).format('LT')}
-                                    </Text>
-                                </View>
-                                <DateTimePicker
-                                    isVisible={isDateTimePickerVisible}
-                                    onConfirm={this.handlePicked}
-                                    onCancel={this.closeDateTimePicker}
-                                    mode="time"
-                                    is24Hour={false}
-                                    date={timeCalendar}
-                                    titleIOS="Chọn thời gian bạn muốn nhắc nhở"
-                                />
-                            </TouchableOpacity>
-                            <View
-                                style={{
-                                    width,
-                                    height: 1,
-                                    backgroundColor: '#cacaca',
-                                    marginVertical: 10,
-                                }}
-                            />
-                        </View>
-                    </Content>
-                </Body>
-                {connected && (
-                    <Footer
-                        style={{
-                            backgroundColor: '#000000',
-                            borderTopColor: '#427ef7',
-                            borderTopWidth: 1,
-                        }}>
-                        <BannerAd />
-                    </Footer>
-                )}
-            </Container>
-        );
-    }
+                <View
+                  style={{
+                    width: width / 2,
+                    flexDirection: 'row',
+                    justifyContent: 'flex-end',
+                    paddingRight: 10
+                  }}
+                >
+                  <Text style={{ marginLeft: 10, fontSize: 16 }}>
+                    {this.state.language ===
+                    Constants.SettingScreen.ENGLISH_VALUE
+                      ? Constants.SettingScreen.ENGLISH_LABEL
+                      : Constants.SettingScreen.VIETNAM_LABEL}
+                  </Text>
+                  <Image
+                    style={{ width: 20, height: 20, marginLeft: 10 }}
+                    source={Images.imageArrowDownBlack}
+                  />
+                </View>
+              </TouchableOpacity>
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderColor: '#CACACA',
+                  width: width - 20,
+                  marginHorizontal: 10,
+                  marginTop: 10,
+                  borderRadius: 5,
+                  padding: 10
+                }}
+              >
+                <Text style={{ fontSize: 16, marginTop: 3, color: '#00ADD8' }}>
+                Copyright @ 1998-2019. 
+                </Text>
+                <TouchableOpacity onPress={() => Linking.openURL('https://esl-lab.com/randall.htm')}>
+                  <Text style={{ fontSize: 16, marginTop: 3, color: '#FF0099' }}>
+                  Randall Davis.
+                  </Text>
+                </TouchableOpacity>
+                <Text style={{ fontSize: 16, marginTop: 3, color: '#00ADD8' }}>
+                All rights reserved.
+                </Text>
+                <TouchableOpacity onPress={() => Linking.openURL('https://esl-lab.com/copy.htm')}>
+                  <Text style={{ fontSize: 16, marginTop: 3, color: '#FF0099' }}>
+                  Read complete Terms of Use for more information.
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Content>
+        </Body>
+        {
+          this.state.connected && 
+          <Footer style={{ backgroundColor: 'white'}}>
+            <AdmobBanner/>
+          </Footer>
+        }
+        <ActionSheet
+          ref={o => (this.actionLanguage = o)}
+          title={Localizations('settingScreen.change_language')}
+          options={this.optionsLanguage}
+          cancelButtonIndex={this.optionsLanguage.length - 1}
+          destructiveButtonIndex={this.state.language === Constants.SettingScreen.ENGLISH_VALUE ? 1 : 0}
+          onPress={index => this.handleActionChooseLanguage(index)}
+        />
+      </Container>
+    );
+  }
 }
 
 export default index;

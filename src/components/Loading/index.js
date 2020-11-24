@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import colors from '../../config/Color';
+import colors from '../../Config/Color';
 import styles from './style';
 
 class index extends Component {
