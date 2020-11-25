@@ -74,12 +74,7 @@ class index extends Component {
   }
 
   async checkFirstTime() {
-    const firstTime = await DataService.getFirstTime();
-    if (firstTime.length === 0) {
-      this.gotoTutorial();
-    } else {
-      this.getData();
-    }
+    this.getData();
   }
 
   gotoTutorial() {
