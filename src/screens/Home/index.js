@@ -461,7 +461,7 @@ class index extends Component {
   }
 
   render() {
-    let { listCategory, loading } = this.state;
+    let { listCategory, loading, listMyWrongWord, listMyWord, tab } = this.state;
     return (
       <Container>
         <Header style={Config.Styles.header}>
@@ -494,7 +494,7 @@ class index extends Component {
               )
             }
             {
-              this.state.tab === TAB.MYWORD && (
+              tab === TAB.MYWORD && (
                 <View style={{ alignItems: 'center' }}>
                   <TouchableOpacity
                     style={{ width: 30, height: 30, marginVertical: 5 }}
@@ -503,21 +503,21 @@ class index extends Component {
                     <Image style={{ width: 30, height: 30, marginVertical: 5 }} source={Images.imageAction} />
                   </TouchableOpacity>
                   <FlatList
-                    extraData={this.state.listMyWord}
-                    data={this.state.listMyWord}
+                    extraData={listMyWord}
+                    data={listMyWord}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={(item, index) =>
                       this.renderMyWordItem(item, index)
                     }
                   />
                   {
-                    this.state.listMyWord.length === 0 && <Text style={{ marginTop: 40 }}>{Localizations('detailScreen.listEmpty')}</Text>
+                    listMyWord.length === 0 && <Text style={{ marginTop: 40 }}>{'Bạn chưa thêm từ mới nào'}</Text>
                   }
                 </View>
               )
             }
             {
-              this.state.tab === TAB.MYWRONGWORD && (
+              tab == TAB.MYWRONGWORD && (
                 <View style={{ alignItems: 'center' }}>
                   <TouchableOpacity
                     style={{ width: 30, height: 30, marginVertical: 5 }}
@@ -526,15 +526,15 @@ class index extends Component {
                     <Image style={{ width: 30, height: 30, marginVertical: 5 }} source={Images.imageAction} />
                   </TouchableOpacity>
                   <FlatList
-                    extraData={this.state.listMyWrongWord}
-                    data={this.state.listMyWrongWord}
+                    extraData={listMyWrongWord}
+                    data={listMyWrongWord}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={(item, index) =>
                       this.renderMyWrongWordItem(item, index)
                     }
                   />
                   {
-                    this.state.listMyWrongWord.length === 0 && <Text style={{ marginTop: 40 }}>{Localizations('detailScreen.listEmpty')}</Text>
+                    listMyWrongWord.length === 0 && <Text style={{ marginTop: 40 }}>{Localizations('detailScreen.listEmpty')}</Text>
                   }
                 </View>
               )
