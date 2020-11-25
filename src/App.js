@@ -17,6 +17,7 @@ import DataService from './Services/DataService';
 import axios from 'axios';
 import KeepAwake from 'react-native-keep-awake';
 import { fcmService } from './Services/FCMService';
+import SplashScreen from 'react-native-splash-screen';
 import moment from 'moment';
 
 
@@ -43,6 +44,7 @@ export default class App extends Component {
 
   componentDidMount() {
     KeepAwake.activate();
+    SplashScreen.hide();
     this.subscribeNetwork = NetInfo.addEventListener((state) => {
       EventRegister.emit(Constants.STATUS_NETWORK, state.isConnected);
     });

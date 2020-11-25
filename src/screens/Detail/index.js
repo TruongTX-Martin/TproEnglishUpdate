@@ -284,6 +284,10 @@ class index extends Component {
   }
 
   handlePlayFile() {
+    if (this.state.maxTime == '0.00') {
+      Alert.alert('', 'Không có kết nối mạng');
+      return;
+    }
     if (this.state.loading || !this.whoosh) return;
     if (!this.state.hasStart) {
       this.playAudio();
@@ -534,7 +538,7 @@ class index extends Component {
 
   render() {
     const onBack = this.props.navigation.state.params.onBack;
-    const { newWords } = this.state;
+    const { newWords, tab } = this.state;
     return (
       <Container style={{ backgroundColor: '#EEEEEE' }}>
         <Header style={Config.Styles.header}>
@@ -722,7 +726,7 @@ class index extends Component {
               )}
 
               {
-                this.state.tab === TAB.NEWWORD && newWords.length > 0 ? (
+                this.state.tab === TAB.NEWWORD && newWords.length > 0 && (
                   <View style={{ justifyContent: 'space-between' }}>
                     <FlatList
                       style={{ marginHorizontal: 10, marginBottom: 10, height: height - this.canculateHeight() }}
@@ -735,10 +739,12 @@ class index extends Component {
                       }
                     />
                   </View>
-                ) :
-                  <View>
-                    <Text style={{ textAlign: 'center', fontSize: 20, marginHorizontal: 15, marginTop: 30 }}>Lưu lại những từ mới của bài học và chọn Thực hành ở dưới để học dễ dàng hơn</Text>
-                  </View>
+                )
+              }
+              {
+                tab == TAB.NEWWORD && newWords.length == 0 && <View>
+                  <Text style={{ textAlign: 'center', fontSize: 20, marginHorizontal: 15, marginTop: 30 }}>Lưu lại những từ mới của bài học và chọn Thực hành ở dưới để học dễ dàng hơn</Text>
+                </View>
               }
 
               {this.state.tab === TAB.TRANSCRIPT && this.state.lesson != null && (

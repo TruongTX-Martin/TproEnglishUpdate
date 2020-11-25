@@ -26,10 +26,6 @@
         android:launchMode="singleTask"
         android:screenOrientation="portrait"
         android:windowSoftInputMode="adjustResize">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
       </activity>
         <activity
             android:name=".MainActivity"
@@ -40,10 +36,10 @@
             android:exported="true"
             >
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-           <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
-    </intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+            </intent-filter>
             </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
       <activity
