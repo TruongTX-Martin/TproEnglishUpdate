@@ -103,8 +103,7 @@ class index extends Component {
   }
 
   async checkReloadData() {
-    const firstTime = await DataService.getFirstTime();
-    if (firstTime.length != 0 && connected && this.state.listCategory.length === 0) {
+    if (connected && this.state.listCategory.length === 0) {
       this.getData();
     }
   }
@@ -461,7 +460,7 @@ class index extends Component {
   }
 
   render() {
-    let { listCategory, loading, listMyWrongWord, listMyWord, tab } = this.state;
+    let { listCategory, loading, listMyWrongWord, listMyWord, tab, connected } = this.state;
     return (
       <Container>
         <Header style={Config.Styles.header}>
@@ -473,6 +472,9 @@ class index extends Component {
         </Header>
         <Body>
           <Content>
+            {
+              connected && <AdmobBanner />
+            }
             <Loading visible={loading} color={'#00A8D9'} styles={{ marginTop: 50 }} />
             {
               !loading && listCategory.length == 0 && <TouchableOpacity

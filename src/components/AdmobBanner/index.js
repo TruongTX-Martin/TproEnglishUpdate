@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
-import { View, Text, Platform } from 'react-native';
-// import {
-//   AdMobBanner
-// } from 'react-native-admob';
+import { Platform, View } from 'react-native';
+import firebase from 'react-native-firebase';
+
 class index extends Component {
-
-
   render() {
+    const Banner = firebase.admob.Banner;
+    const AdRequest = firebase.admob.AdRequest;
+    const request = new AdRequest();
+    //this is testID
+    const unitId =
+      'ca-app-pub-3940256099942544/6300978111';
+    // const unitId = Platform.OS === 'ios'
+    //   ? 'ca-app-pub-7408150007491403/8094897699'
+    //   : 'ca-app-pub-7408150007491403/1888759602';
     return (
-      <View>
-        {/* <AdMobBanner
-          adSize="smartBannerLandscape||smartBannerPortrait"
-          adUnitID={Platform.OS === 'android' ? 'ca-app-pub-7408150007491403/9999770378' : 'ca-app-pub-7408150007491403/4718304945'}
-          testDevices={[AdMobBanner.simulatorId]}
-          onAdFailedToLoad={error => console.log('Load admob error:', error)}
-        /> */}
+      <View style={{ borderTopWidth: 1, borderTopColor: '#427ef7', borderBottomWidth: 1, borderBottomColor: '#427ef7' }}>
+        <Banner
+          style={{ top: 0, left: 0 }}
+          unitId={unitId}
+          size={'SMART_BANNER'}
+          request={request.build()}
+          onAdLoaded={() => { }}
+          onAdFailedToLoad={(error) => {
+            console.log('onAdFailedToLoad:', error);
+          }}
+        />
       </View>
     );
   }

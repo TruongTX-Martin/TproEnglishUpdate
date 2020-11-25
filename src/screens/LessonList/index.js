@@ -246,7 +246,7 @@ class index extends Component {
         </Body>
         {
           this.state.connected &&
-          <Footer style={{ backgroundColor: 'white' }}>
+          <Footer style={{ backgroundColor: 'black' }}>
             <AdmobBanner />
           </Footer>
         }

@@ -26,6 +26,7 @@ import Loading from '../../Components/Loading';
 import AdmobBanner from '../../Components/AdmobBanner';
 import { getTopAndBottomHeight } from '../../Helper/StatusBar';
 import { EventRegister } from 'react-native-event-listeners';
+import { showInterstitialAd } from '../../utils';
 const Sound = require('react-native-sound');
 Sound.setCategory('Playback');
 import { Localizations } from '../../i18n';
@@ -132,6 +133,10 @@ class index extends Component {
     });
     this.getNewWordsDB();
     this.checkFileDownloaded();
+    if (!DataService.getShowAdDetail()) {
+      showInterstitialAd();
+      DataService.setShowAdDetail(true);
+    }
   }
 
   checkFileDownloaded() {
@@ -416,7 +421,7 @@ class index extends Component {
             <Text style={{ fontSize: 15, fontWeight: 'bold', color: item.isMyWord ? '#00B2D7' : '#000000' }}>{item.title}</Text>
             <Text style={{ fontSize: 14, }}>{item.meaning}</Text>
             {
-              item.note.trim().length > 0 && (
+              item?.note?.trim().length > 0 && (
                 <Text style={{ fontSize: 12, color: 'red', marginBottom: 3 }}>( {item.note} )</Text>
               )
             }

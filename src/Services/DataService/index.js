@@ -4,6 +4,9 @@ import Constants from '../../Config/Constant';
 var CryptoJS = require("crypto-js");
 import ENC from 'crypto-js/enc-utf8'
 
+let showAdDetail = false;
+
+
 const getData = tableName => {
   return Realm.objects(tableName);
 };
@@ -297,6 +300,18 @@ const getNotificationTime = async () => {
   return await AsyncStorage.getItem(Constants.PUSH_NOTIFICATION_TIME);
 };
 
+const setShowAdDetail = (connected) => {
+  showAdDetail = connected;
+  const timeout = setTimeout(() => {
+    showAdDetail = false;
+    clearTimeout(timeout);
+  }, 30 * 1000 * 60);
+};
+
+const getShowAdDetail = () => {
+  return showAdDetail;
+};
+
 const dataService = {
   getData,
   deleteData,
@@ -325,6 +340,8 @@ const dataService = {
   getNotificationStatus,
   setNotificationTime,
   getNotificationTime,
+  setShowAdDetail,
+  getShowAdDetail,
 };
 
 export default dataService;
