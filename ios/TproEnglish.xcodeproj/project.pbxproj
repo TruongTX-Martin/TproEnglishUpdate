@@ -105,7 +105,6 @@
 		A550B9D779944225B638A580 /* libGCDWebServers.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libGCDWebServers.a; sourceTree = "<group>"; };
 		C356C91F8D7541738FD79394 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		C6582FC02565350D0037EA22 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/PrivateFrameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		C6973E87256A47630074C70E /* TproEnglishDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TproEnglishDebug.entitlements; path = TproEnglish/TproEnglishDebug.entitlements; sourceTree = "<group>"; };
 		C6973F26256A5F060074C70E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C6F7BC97256D5F9E00AA27D0 /* TproEnglish.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TproEnglish.entitlements; path = TproEnglish/TproEnglish.entitlements; sourceTree = "<group>"; };
 		C6FAEC092565447C00499E4B /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -179,7 +178,6 @@
 			children = (
 				C6F7BC97256D5F9E00AA27D0 /* TproEnglish.entitlements */,
 				C6973F26256A5F060074C70E /* GoogleService-Info.plist */,
-				C6973E87256A47630074C70E /* TproEnglishDebug.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -392,6 +390,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = JQ8LA5VSZS;
 						LastSwiftMigration = 1120;
+						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -840,7 +839,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TproEnglish/TproEnglish.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = JQ8LA5VSZS;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -858,7 +859,7 @@
 					"values>",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 2.0.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -866,6 +867,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tpro.biblestory;
 				PRODUCT_NAME = TproEnglish;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(inherited) $(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks";
@@ -880,7 +882,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TproEnglish/TproEnglish.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 9;
+				DEVELOPMENT_TEAM = JQ8LA5VSZS;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/realm/src/**",
@@ -892,7 +897,7 @@
 					"values>",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 2.0.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -900,6 +905,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tpro.biblestory;
 				PRODUCT_NAME = TproEnglish;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(inherited) $(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks";
 				VERSIONING_SYSTEM = "apple-generic";

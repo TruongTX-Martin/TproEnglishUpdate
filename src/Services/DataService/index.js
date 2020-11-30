@@ -74,6 +74,7 @@ const updateLesson = (lesson, total, score) => {
 const addNewWord = newWord => {
   try {
     const lessons = Realm.objects(Constants.NEWWORD).filtered(`title="${newWord.title}"`);
+    console.log('Add new word:', lessons);
     if (Object.keys(lessons).length === 0) {
       Realm.write(() => {
         Realm.create(Constants.NEWWORD, newWord);
@@ -88,38 +89,20 @@ const addNewWord = newWord => {
 
 const getNewWordByLesson = lesson => {
   const lessons = Realm.objects(Constants.NEWWORD).filtered(`lessonId="${lesson.id}"`);
-  const newArr = [];
-  for (let i = 0; i < lessons.length; i++) {
-    const item = lessons[i];
-    newArr.push({
-      ...item
-    })
-  }
-  return newArr;
+  const listDataPlain = JSON.parse(JSON.stringify(lessons));
+  return Array.from(listDataPlain);
 };
 
 const getMyWords = () => {
   const lessons = Realm.objects(Constants.NEWWORD).filtered(`isMyWord=true`);
-  const newArr = [];
-  for (let i = 0; i < lessons.length; i++) {
-    const item = lessons[i];
-    newArr.push({
-      ...item
-    })
-  }
-  return newArr;
+  const listDataPlain = JSON.parse(JSON.stringify(lessons));
+  return Array.from(listDataPlain);
 };
 
 const getMyWrongWords = () => {
   const lessons = Realm.objects(Constants.NEWWORD).filtered(`isWrong=true`);
-  const newArr = [];
-  for (let i = 0; i < lessons.length; i++) {
-    const item = lessons[i];
-    newArr.push({
-      ...item
-    })
-  }
-  return newArr;
+  const listDataPlain = JSON.parse(JSON.stringify(lessons));
+  return Array.from(listDataPlain);
 };
 
 const deleteNewWord = newWord => {

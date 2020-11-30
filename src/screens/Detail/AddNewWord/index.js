@@ -43,7 +43,7 @@ class index extends Component {
 
   backToPrevious() {
     const onBack = this.props.navigation.state.params.onBack;
-    if(onBack){
+    if (onBack) {
       onBack();
     }
     this.props.navigation.goBack();
@@ -55,7 +55,7 @@ class index extends Component {
       this.state.title.trim().length === 0 ||
       this.state.meaning.trim().length === 0
     ) {
-      Alert.alert('',Localizations('detailScreen.titleMeaningEmpty'));
+      Alert.alert('', Localizations('detailScreen.titleMeaningEmpty'));
       return;
     }
     const { lessonId, childCategoryId } = this.props.navigation.state.params;
@@ -71,10 +71,10 @@ class index extends Component {
       isWrong: false
     };
     const result = DataService.addNewWord(newWord);
-    if(result){
+    if (result) {
       this.backToPrevious();
-    }else{
-      Alert.alert('',Localizations('detailScreen.wordExits'));
+    } else {
+      Alert.alert('', Localizations('detailScreen.wordExits'));
     }
   }
 
@@ -83,7 +83,7 @@ class index extends Component {
       this.state.title.trim().length === 0 ||
       this.state.meaning.trim().length === 0
     ) {
-      Alert.alert('',Localizations('detailScreen.titleMeaningEmpty'));
+      Alert.alert('', Localizations('detailScreen.titleMeaningEmpty'));
       return;
     }
 
@@ -94,12 +94,12 @@ class index extends Component {
       this.state.meaning,
       this.state.note
     );
-    if(result){
+    if (result) {
       this.backToPrevious();
-    }else{
-      Alert.alert('','Từ đã tồn tại');
+    } else {
+      Alert.alert('', 'Từ đã tồn tại');
     }
-      
+
   }
 
   onSubmit() {
@@ -113,7 +113,7 @@ class index extends Component {
   }
 
 
-  componentWillMount(){
+  componentWillMount() {
     this.realoadAdListener = EventRegister.addEventListener(Constants.STATUS_NETWORK, (data) => {
       this.setState({
         connected: data
@@ -121,7 +121,7 @@ class index extends Component {
     });
     BackHandler.addEventListener('hardwareBackPress', this.onAndroidBackPress);
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     EventRegister.removeEventListener(this.realoadAdListener);
     BackHandler.removeEventListener('hardwareBackPress', this.onAndroidBackPress);
   }
@@ -140,111 +140,109 @@ class index extends Component {
           />
         </Header>
         <Body>
-        <View style={{ backgroundColor: '#EEEEEE' }}>
-          <TextInput
-            style={{
-              width: width - 40,
-              height: 40,
-              marginHorizontal: 20,
-              marginTop: 20,
-              backgroundColor: 'white',
-              borderRadius: 10,
-              paddingLeft: 5
-            }}
-            maxLength={50}
-            placeholder={Localizations('detailScreen.typeYourNewWord')}
-            value={this.state.title}
-            onChangeText={text => this.setState({ title: text })}
-          />
-          <TextInput
-            style={{
-              width: width - 40,
-              height: 40,
-              marginHorizontal: 20,
-              marginTop: 10,
-              backgroundColor: 'white',
-              borderRadius: 10,
-              paddingLeft: 5
-            }}
-            placeholder={Localizations('detailScreen.meaning')}
-            maxLength={50}
-            value={this.state.meaning}
-            onChangeText={text => this.setState({ meaning: text })}
-          />
-          <TextInput
-            style={{
-              width: width - 40,
-              marginHorizontal: 20,
-              marginTop: 10,
-              backgroundColor: 'white',
-              borderRadius: 10,
-              paddingLeft: 5
-            }}
-            multiline={true}
-            maxLength={100}
-            numberOfLines={4}
-            minHeight={100}
-            placeholder={Localizations('detailScreen.yourNote')}
-            value={this.state.note}
-            onChangeText={text => this.setState({ note: text })}
-          />
-        </View>
+          <View style={{ backgroundColor: '#EEEEEE' }}>
+            {
+              this.state.connected &&
+              <AdmobBanner />
+            }
+            <TextInput
+              style={{
+                width: width - 40,
+                height: 40,
+                marginHorizontal: 20,
+                marginTop: 20,
+                backgroundColor: 'white',
+                borderRadius: 10,
+                paddingLeft: 5
+              }}
+              maxLength={50}
+              placeholder={Localizations('detailScreen.typeYourNewWord')}
+              value={this.state.title}
+              onChangeText={text => this.setState({ title: text })}
+            />
+            <TextInput
+              style={{
+                width: width - 40,
+                height: 40,
+                marginHorizontal: 20,
+                marginTop: 10,
+                backgroundColor: 'white',
+                borderRadius: 10,
+                paddingLeft: 5
+              }}
+              placeholder={Localizations('detailScreen.meaning')}
+              maxLength={50}
+              value={this.state.meaning}
+              onChangeText={text => this.setState({ meaning: text })}
+            />
+            <TextInput
+              style={{
+                width: width - 40,
+                marginHorizontal: 20,
+                marginTop: 10,
+                backgroundColor: 'white',
+                borderRadius: 10,
+                paddingLeft: 5
+              }}
+              multiline={true}
+              maxLength={100}
+              numberOfLines={4}
+              minHeight={100}
+              placeholder={Localizations('detailScreen.yourNote')}
+              value={this.state.note}
+              onChangeText={text => this.setState({ note: text })}
+            />
+          </View>
 
-        <View
-          style={{ width, height: 50, marginTop: 10, flexDirection: 'row' }}
-        >
-          <TouchableOpacity
-            style={{
-              width: width / 2 - 20,
-              height: 40,
-              backgroundColor: 'gray',
-              justifyContent: 'center',
-              marginHorizontal: 10,
-              borderRadius: 5
-            }}
-            onPress={() => this.backToPrevious()}
+          <View
+            style={{ width, height: 50, marginTop: 10, flexDirection: 'row' }}
           >
-            <Text
+            <TouchableOpacity
               style={{
-                color: 'white',
-                fontSize: 16,
-                fontWeight: 'bold',
-                alignSelf: 'center'
+                width: width / 2 - 20,
+                height: 40,
+                backgroundColor: 'gray',
+                justifyContent: 'center',
+                marginHorizontal: 10,
+                borderRadius: 5
               }}
+              onPress={() => this.backToPrevious()}
             >
-              {Localizations('detailScreen.cancel')}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              width: width / 2 - 20,
-              height: 40,
-              backgroundColor: '#00ADD8',
-              justifyContent: 'center',
-              marginHorizontal: 10,
-              borderRadius: 5
-            }}
-            onPress={() => this.onSubmit()}
-          >
-            <Text
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  alignSelf: 'center'
+                }}
+              >
+                {Localizations('detailScreen.cancel')}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
               style={{
-                color: 'white',
-                fontSize: 16,
-                fontWeight: 'bold',
-                alignSelf: 'center'
+                width: width / 2 - 20,
+                height: 40,
+                backgroundColor: '#00ADD8',
+                justifyContent: 'center',
+                marginHorizontal: 10,
+                borderRadius: 5
               }}
+              onPress={() => this.onSubmit()}
             >
-              {this.state.newWord ? Localizations('detailScreen.submit') : Localizations('detailScreen.addNew')}
-            </Text>
-          </TouchableOpacity>
-        </View>
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  alignSelf: 'center'
+                }}
+              >
+                {this.state.newWord ? 'Lưu lại' : Localizations('detailScreen.addNew')}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </Body>
-        {
-          this.state.connected && 
-          <Footer style={{ backgroundColor: 'white'}}>
-            <AdmobBanner/>
-          </Footer>
-        }
       </Container>
     );
   }

@@ -8,11 +8,11 @@ class index extends Component {
     const AdRequest = firebase.admob.AdRequest;
     const request = new AdRequest();
     //this is testID
-    const unitId =
-      'ca-app-pub-3940256099942544/6300978111';
-    // const unitId = Platform.OS === 'ios'
-    //   ? 'ca-app-pub-7408150007491403/8094897699'
-    //   : 'ca-app-pub-7408150007491403/1888759602';
+    // const unitId =
+    //   'ca-app-pub-3940256099942544/6300978111';
+    const unitId = Platform.OS === 'ios'
+      ? 'ca-app-pub-7408150007491403/8094897699'
+      : 'ca-app-pub-7408150007491403/1888759602';
     return (
       <View style={{ borderTopWidth: 1, borderTopColor: '#427ef7', borderBottomWidth: 1, borderBottomColor: '#427ef7' }}>
         <Banner

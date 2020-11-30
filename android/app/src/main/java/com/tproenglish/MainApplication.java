@@ -7,6 +7,7 @@ import androidx.multidex.MultiDexApplication;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import io.realm.react.RealmReactPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.github.wumke.RNExitApp.RNExitAppPackage;

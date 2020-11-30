@@ -12,7 +12,6 @@ import HeaderBase from '../../Components/HeaderBase';
 import Config from '../../Config';
 import DataService from '../../Services/DataService';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import { EventRegister } from 'react-native-event-listeners';
 import moment from 'moment';
 import { showToast, showInterstitialAd } from '../../utils';
 import { fcmService } from '../../Services/FCMService';
@@ -263,34 +262,6 @@ class index extends Component {
                   marginVertical: 10,
                 }}
               />
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: '#CACACA',
-                  width: width - 20,
-                  marginHorizontal: 10,
-                  marginTop: 10,
-                  borderRadius: 5,
-                  padding: 10
-                }}
-              >
-                <Text style={{ fontSize: 16, marginTop: 3, color: '#00ADD8' }}>
-                  Copyright @ 1998-2019.
-                </Text>
-                <TouchableOpacity onPress={() => Linking.openURL('https://esl-lab.com/randall.htm')}>
-                  <Text style={{ fontSize: 16, marginTop: 3, color: '#FF0099' }}>
-                    Randall Davis.
-                  </Text>
-                </TouchableOpacity>
-                <Text style={{ fontSize: 16, marginTop: 3, color: '#00ADD8' }}>
-                  All rights reserved.
-                </Text>
-                <TouchableOpacity onPress={() => Linking.openURL('https://esl-lab.com/copy.htm')}>
-                  <Text style={{ fontSize: 16, marginTop: 3, color: '#FF0099' }}>
-                    Read complete Terms of Use for more information.
-                  </Text>
-                </TouchableOpacity>
-              </View>
             </View>
           </Content>
         </Body>

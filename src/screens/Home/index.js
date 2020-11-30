@@ -367,8 +367,8 @@ class index extends Component {
             <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{item.title}</Text>
             <Text style={{ fontSize: 14, }}>{item.meaning}</Text>
             {
-              item.note.trim().length > 0 && (
-                <Text style={{ fontSize: 12, color: 'red', marginBottom: 3 }}>( {item.note} )</Text>
+              item?.note?.trim().length > 0 && (
+                <Text style={{ fontSize: 12, color: 'red', marginBottom: 3 }}>( {item?.note} )</Text>
               )
             }
           </View>
@@ -424,8 +424,8 @@ class index extends Component {
             <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{item.title}</Text>
             <Text style={{ fontSize: 14, }}>{item.meaning}</Text>
             {
-              item.note.trim().length > 0 && (
-                <Text style={{ fontSize: 12, color: 'red', marginBottom: 3 }}>( {item.note} )</Text>
+              item?.note?.trim().length > 0 && (
+                <Text style={{ fontSize: 12, color: 'red', marginBottom: 3 }}>( {item?.note} )</Text>
               )
             }
           </View>
@@ -473,7 +473,9 @@ class index extends Component {
         <Body>
           <Content>
             {
-              connected && <AdmobBanner />
+              connected && <View style={{ paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: '#cacaca' }}>
+                <AdmobBanner />
+              </View>
             }
             <Loading visible={loading} color={'#00A8D9'} styles={{ marginTop: 50 }} />
             {
@@ -551,7 +553,7 @@ class index extends Component {
           cancelButtonIndex={this.listOptionActionPratice.length - 1}
           onPress={index => this.handlePressActionPractice(index)}
         />
-        <Footer style={{ backgroundColor: '#00ADD8' }}>
+        <Footer style={{ backgroundColor: '#000000' }}>
           <View style={Style.viewTab}>
             <TouchableOpacity
               style={Style.tab}

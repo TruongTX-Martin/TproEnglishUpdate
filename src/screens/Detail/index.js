@@ -112,7 +112,6 @@ class index extends Component {
   componentDidMount() {
     const lessonParam = this.props.navigation.state.params.lesson;
     let lesson = JSON.parse(JSON.stringify(lessonParam));
-    console.log('Lesson params:', lesson);
     let newArrQuesiton = [];
     const questions = lesson.questions;
     for (let i in questions) {
@@ -544,6 +543,7 @@ class index extends Component {
   render() {
     const onBack = this.props.navigation.state.params.onBack;
     const { newWords, tab } = this.state;
+    console.log('newWords;', newWords);
     return (
       <Container style={{ backgroundColor: '#EEEEEE' }}>
         <Header style={Config.Styles.header}>
