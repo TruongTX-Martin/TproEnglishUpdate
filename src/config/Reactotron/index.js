@@ -3,7 +3,7 @@ import Reactotron from 'reactotron-react-native'
 Reactotron
   .configure({
     name: "React Native Demo",
-    host: '192.168.1.30',
+    host: '10.80.0.33',
     /*If you want to connect Android for debug*/
   })
   .useReactNative({

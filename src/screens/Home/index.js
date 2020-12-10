@@ -103,7 +103,7 @@ class index extends Component {
   }
 
   async checkReloadData() {
-    if (connected && this.state.listCategory.length === 0) {
+    if (this.state.connected && this.state.listCategory.length === 0) {
       this.getData();
     }
   }

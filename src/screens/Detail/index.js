@@ -542,8 +542,9 @@ class index extends Component {
 
   render() {
     const onBack = this.props.navigation.state.params.onBack;
-    const { newWords, tab } = this.state;
-    console.log('newWords;', newWords);
+    const { newWords, tab, currentTime, totalTime } = this.state;
+    console.log('Current time: ', currentTime);
+    console.log('Current totalTime: ', totalTime);
     return (
       <Container style={{ backgroundColor: '#EEEEEE' }}>
         <Header style={Config.Styles.header}>
@@ -617,9 +618,9 @@ class index extends Component {
               <View style={{ width: width - 70, marginRight: 10 }}>
                 <Slider
                   animateTransitions={true}
-                  value={this.state.currentTime}
+                  value={currentTime}
                   minimumValue={0}
-                  maximumValue={this.state.totalTime}
+                  maximumValue={totalTime > 0 ? totalTime : 1}
                   style={{ width: width - 70, height: 25, marginTop: 15 }}
                   minimumTrackTintColor='#00ADD8'
                   maximumTrackTintColor='#B3B3B3'
