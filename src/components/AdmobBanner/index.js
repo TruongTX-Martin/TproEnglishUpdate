@@ -10,11 +10,18 @@ class index extends Component {
     //this is testID
     // const unitId =
     //   'ca-app-pub-3940256099942544/6300978111';
-    const unitId = Platform.OS === 'ios'
-      ? 'ca-app-pub-7408150007491403/8094897699'
-      : 'ca-app-pub-7408150007491403/1888759602';
+    const unitId =
+      Platform.OS === 'ios'
+        ? 'ca-app-pub-9993410830259062/9156825206'
+        : 'ca-app-pub-9993410830259062/8965253516';
     return (
-      <View style={{ borderTopWidth: 1, borderTopColor: '#427ef7', borderBottomWidth: 1, borderBottomColor: '#427ef7' }}>
+      <View
+        style={{
+          borderTopWidth: 1,
+          borderTopColor: '#427ef7',
+          borderBottomWidth: 1,
+          borderBottomColor: '#427ef7',
+        }}>
         <Banner
           style={{ top: 0, left: 0 }}
           unitId={unitId}

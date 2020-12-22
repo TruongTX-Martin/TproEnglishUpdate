@@ -18,7 +18,7 @@
       android:theme="@style/AppTheme">
        <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-7408150007491403~8454167952"/>
+            android:value="ca-app-pub-9993410830259062~2782988546"/>
       <activity
         android:name=".SplashActivity"
         android:label="@string/app_name"
