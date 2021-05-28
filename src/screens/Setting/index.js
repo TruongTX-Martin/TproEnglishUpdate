@@ -147,7 +147,7 @@ class index extends Component {
       isEnableNoti,
       isDateTimePickerVisible,
       notificationTime,
-      connected
+      connected,
     } = this.state;
     const timeCalendar = new Date(notificationTime);
     timeCalendar.setDate(new Date().getDate());
@@ -177,7 +177,7 @@ class index extends Component {
                     marginLeft: 10,
                   }}>
                   Nhắc nhở học tiếng anh hàng ngày
-                                </Text>
+                </Text>
                 <View
                   style={{
                     display: 'flex',
@@ -265,16 +265,6 @@ class index extends Component {
             </View>
           </Content>
         </Body>
-        {connected && (
-          <Footer
-            style={{
-              backgroundColor: '#000000',
-              borderTopColor: '#427ef7',
-              borderTopWidth: 1,
-            }}>
-            <BannerAd />
-          </Footer>
-        )}
       </Container>
     );
   }

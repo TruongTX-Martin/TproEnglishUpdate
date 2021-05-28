@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Alert,
-  BackHandler
+  BackHandler,
 } from 'react-native';
 import { Container, Body, Content, Header, Footer } from 'native-base';
 import Config from '../../Config';
@@ -28,9 +28,9 @@ class index extends Component {
     this.state = {
       loading: false,
       listLesson: [],
-      connected: props.navigation.state.params.connected
+      connected: props.navigation.state.params.connected,
     };
-    const firebase = require("firebase");
+    const firebase = require('firebase');
     this.database = firebase.database();
   }
 
@@ -45,7 +45,11 @@ class index extends Component {
 
   getListFormDB() {
     const childCategory = this.props.navigation.state.params.childCategory;
-    const arrDB = DataService.getListData(Constants.LESSON, 'childCategoryId', childCategory.id);
+    const arrDB = DataService.getListData(
+      Constants.LESSON,
+      'childCategoryId',
+      childCategory.id,
+    );
     if (arrDB.length < 1) {
       if (this.state.connected) {
         this.getListLesson(childCategory);
@@ -53,7 +57,7 @@ class index extends Component {
         Alert.alert('', Localizations('listLesson.netWorkError'));
       }
     } else {
-      let newArr = arrDB.map(item => {
+      let newArr = arrDB.map((item) => {
         return {
           ...item,
           id: item.id,
@@ -64,29 +68,30 @@ class index extends Component {
           transcripts: item.transcripts,
           url: DataService.decryptText(item.url, Constants.USE_FOR_ME),
           title: DataService.decryptText(item.title, Constants.USE_FOR_ME),
-          questions: item.questions.map(e => {
+          questions: item.questions.map((e) => {
             return {
               ...e,
-              question: DataService.decryptText(e.question, Constants.USE_FOR_ME),
+              question: DataService.decryptText(
+                e.question,
+                Constants.USE_FOR_ME,
+              ),
               answers: e.answers,
             };
-          })
-        }
+          }),
+        };
       });
       newArr = newArr.sort((a, b) => a?.title.localeCompare(b?.title));
-      this.setState({ listLesson: newArr })
+      this.setState({ listLesson: newArr });
     }
   }
 
-
-
-  getListLesson = childCategory => {
-    this.setState({ loading: true })
+  getListLesson = (childCategory) => {
+    this.setState({ loading: true });
     this.database
       .ref('item')
       .orderByChild('childCategoryId')
       .equalTo(childCategory.id)
-      .on('value', snapshot => {
+      .on('value', (snapshot) => {
         if (snapshot.val()) {
           let arr = [];
           for (let key in snapshot.val()) {
@@ -95,10 +100,10 @@ class index extends Component {
               isSubmit: false,
               total: 0,
               score: 0,
-              ...snapshot.val()[key]
+              ...snapshot.val()[key],
             });
           }
-          let newArr = arr.map(item => {
+          let newArr = arr.map((item) => {
             return {
               ...item,
               id: item.id,
@@ -109,20 +114,23 @@ class index extends Component {
               transcripts: item.transcripts,
               url: DataService.encryptText(item.url, Constants.USE_FOR_ME),
               title: DataService.encryptText(item.title, Constants.USE_FOR_ME),
-              questions: item.questions.map(e => {
+              questions: item.questions.map((e) => {
                 return {
                   ...e,
-                  question: DataService.encryptText(e.question, Constants.USE_FOR_ME),
+                  question: DataService.encryptText(
+                    e.question,
+                    Constants.USE_FOR_ME,
+                  ),
                   answers: e.answers,
                 };
-              })
-            }
+              }),
+            };
           });
           DataService.saveListLesson(newArr);
           newArr = newArr.sort((a, b) => a?.title.localeCompare(b?.title));
           this.setState({
             listLesson: arr,
-            loading: false
+            loading: false,
           });
         } else {
           this.setState({ listLesson: [], loading: false });
@@ -139,7 +147,7 @@ class index extends Component {
         this.getListFormDB();
         //dispatch event when user comeback from detail screen
         EventRegister.emit(Constants.RELOAD_LISTWORD);
-      }
+      },
     });
   }
 
@@ -148,56 +156,70 @@ class index extends Component {
   }
 
   componentWillMount() {
-    this.realoadAdListener = EventRegister.addEventListener(Constants.STATUS_NETWORK, (connected) => {
-      this.setState({
-        connected
-      });
-      if (connected && this.state.listLesson.length === 0) {
-        this.getListFormDB();
-      }
-    });
+    this.realoadAdListener = EventRegister.addEventListener(
+      Constants.STATUS_NETWORK,
+      (connected) => {
+        this.setState({
+          connected,
+        });
+        if (connected && this.state.listLesson.length === 0) {
+          this.getListFormDB();
+        }
+      },
+    );
     BackHandler.addEventListener('hardwareBackPress', this.onAndroidBackPress);
   }
   componentWillUnmount() {
     EventRegister.removeEventListener(this.realoadAdListener);
-    BackHandler.removeEventListener('hardwareBackPress', this.onAndroidBackPress);
+    BackHandler.removeEventListener(
+      'hardwareBackPress',
+      this.onAndroidBackPress,
+    );
   }
 
   onAndroidBackPress = () => {
     this.props.navigation.goBack();
     return true;
-  }
+  };
 
   renderItem({ item, index }) {
     return (
       <View>
         <TouchableOpacity
           style={{ flexDirection: 'row', justifyContent: 'space-between' }}
-          onPress={() => this.gotoDetailLesson(item)}
-        >
+          onPress={() => this.gotoDetailLesson(item)}>
           <View style={{ width: width - 40 }}>
             <Text
               style={{
                 fontSize: 16,
                 marginTop: 10,
                 marginBottom: item.isSubmit ? 0 : 10,
-                marginHorizontal: 5
-              }}
-            >
+                marginHorizontal: 5,
+              }}>
               {item.title}
             </Text>
-            {
-              item.isSubmit &&
-              <Text style={{ marginHorizontal: 5, fontSize: 12, marginVertical: 5, color: this.caculateScore(item.score, item.total) > 79 ? '#00ADD8' : 'red', fontWeight: 'bold' }}>{Localizations('listLesson.score')}: {item.score}/{item.total}</Text>
-            }
+            {item.isSubmit && (
+              <Text
+                style={{
+                  marginHorizontal: 5,
+                  fontSize: 12,
+                  marginVertical: 5,
+                  color:
+                    this.caculateScore(item.score, item.total) > 79
+                      ? '#00ADD8'
+                      : 'red',
+                  fontWeight: 'bold',
+                }}>
+                {Localizations('listLesson.score')}: {item.score}/{item.total}
+              </Text>
+            )}
           </View>
           <View
             style={{
               width: 40,
               justifyContent: 'center',
-              alignItems: 'flex-start'
-            }}
-          >
+              alignItems: 'flex-start',
+            }}>
             <Image
               style={{ width: 20, height: 20, marginLeft: 3 }}
               source={Images.imageArrowRightBlack}
@@ -209,7 +231,7 @@ class index extends Component {
             width: width - 10,
             height: 1,
             backgroundColor: '#CACACA',
-            marginHorizontal: 5
+            marginHorizontal: 5,
           }}
         />
       </View>
@@ -221,20 +243,35 @@ class index extends Component {
     return (
       <Container>
         <Header style={Config.Styles.header}>
-          <HeaderBase title={Localizations('listLesson.listLesson')} navigation={this.props.navigation} />
+          <HeaderBase
+            title={Localizations('listLesson.listLesson')}
+            navigation={this.props.navigation}
+          />
         </Header>
         <Body>
           <Content showsVerticalScrollIndicator={false}>
-            <Loading visible={loading} color={'#00A8D9'} styles={{ marginTop: 50 }} />
-            {
-              !loading && listLesson.length == 0 && <TouchableOpacity
-                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width, marginTop: 20 }}
-                onPress={() => this.reloadData()}
-              >
+            <Loading
+              visible={loading}
+              color={'#00A8D9'}
+              styles={{ marginTop: 50 }}
+            />
+            {!loading && listLesson.length == 0 && (
+              <TouchableOpacity
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width,
+                  marginTop: 20,
+                }}
+                onPress={() => this.reloadData()}>
                 <Text style={{ textAlign: 'center' }}>Tải lại dữ liệu</Text>
-                <Image style={{ width: 50, height: 50, marginTop: 20 }} source={Images.imageIcReload} />
+                <Image
+                  style={{ width: 50, height: 50, marginTop: 20 }}
+                  source={Images.imageIcReload}
+                />
               </TouchableOpacity>
-            }
+            )}
             <FlatList
               extraData={listLesson}
               data={listLesson}
@@ -244,12 +281,6 @@ class index extends Component {
             />
           </Content>
         </Body>
-        {
-          this.state.connected &&
-          <Footer style={{ backgroundColor: 'black' }}>
-            <AdmobBanner />
-          </Footer>
-        }
       </Container>
     );
   }
