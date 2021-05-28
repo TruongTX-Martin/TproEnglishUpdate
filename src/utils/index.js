@@ -11,11 +11,11 @@ export const isEmpty = (obj) => {
 };
 
 export const showInterstitialAd = (callbackClose) => {
-    const unitId = 'ca-app-pub-3940256099942544/1033173712';
-    // const unitId =
-    //     Platform.OS === 'ios'
-    //         ? 'ca-app-pub-9993410830259062/1341096125'
-    //         : 'ca-app-pub-9993410830259062/4367548866';
+    // const unitId = 'ca-app-pub-3940256099942544/1033173712';
+    const unitId =
+        Platform.OS === 'ios'
+            ? 'ca-app-pub-4551292767712620/7619125984'
+            : 'ca-app-pub-4551292767712620/4035104194';
     const advert = firebase.admob().interstitial(unitId);
     const AdRequest = firebase.admob.AdRequest;
     const request = new AdRequest();
